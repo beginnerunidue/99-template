@@ -6,6 +6,7 @@ import Button from "./components/Button";
 import Counter from "./components/Counter";
 
 function App() {
+  console.log("App rendered");
   const [clickCounter, setClickCounter] = useState(0);
 
   const handleButtonClick = () => {

@@ -1,21 +1,29 @@
+import { useEffect, useState } from "react";
 import "./App.css";
 
-import Wrapper from "./components/Wrapper";
-import Login from "./components/Login";
-
 function App() {
+  const [todo, setTodo] = useState(null);
+
+  useEffect(() => {
+    console.log("Callback in useEffect called");
+    fetch("https://jsonplaceholder.typicode.com/todos/5")
+      .then((response) => response.json())
+      .then((json) => setTodo(json));
+  }, []);
+
+  console.log("App rendered", todo);
+
   return (
     <div className="App">
-      <Wrapper color="lightblue">
-        <h2>Text inside of the blue Wrapper</h2>
-        <button>Click me!</button>
-      </Wrapper>
-      <Wrapper color="lightgreen">
-        <h2>Text inside of the green Wrapper</h2>
-        <button>Click me!</button>
-        <input type="text" placeholder="Enter value" />
-      </Wrapper>
-      <Login />
+      {todo !== null ? (
+        <h3>
+          id: {todo.id} title: {todo.title}
+        </h3>
+      ) : (
+        <div>
+          <h3>todo is jet null</h3>
+        </div>
+      )}
     </div>
   );
 }
